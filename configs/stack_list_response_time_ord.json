@@ -1,0 +1,13 @@
+{
+    "graphite": "http://graphite-n01.infra.rs-heat.com",
+    "time": "-7days",
+    "metric": "ORD Stack List Response Time seconds",
+    "type": "average",
+    "targets": [
+        {
+            "averageSeries": [
+                "stats.timers.heat.*_ord_rs-heat_com.api.actions.list_stacks.upper_90"
+            ]
+        }
+    ]
+}

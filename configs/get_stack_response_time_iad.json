@@ -1,0 +1,13 @@
+{
+    "graphite": "http://graphite-n01.infra.rs-heat.com",
+    "time": "-7days",
+    "metric": "IAD Get Stack Response Time seconds",
+    "type": "average",
+    "targets": [
+        {
+            "averageSeries": [
+                "stats.timers.heat.*_iad_rs-heat_com.api.actions.get_stack.upper_90"
+            ]
+        }
+    ]
+}

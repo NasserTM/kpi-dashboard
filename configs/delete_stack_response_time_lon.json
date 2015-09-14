@@ -1,0 +1,13 @@
+{
+    "graphite": "http://graphite-n01.infra.rs-heat.com",
+    "time": "-7days",
+    "metric": "LON Stack Delete Response Time seconds",
+    "type": "average",
+    "targets": [
+        {
+            "averageSeries": [
+                "stats.timers.heat.*_lon_rs-heat_com.api.actions.delete_stack.upper_90"
+            ]
+        }
+    ]
+}
