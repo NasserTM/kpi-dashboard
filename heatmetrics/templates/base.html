@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {%- block head %}
+    <title>Heat KPI Metrics</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    {%- endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">Heat KPI Metrics</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+          {%- block navlist %}
+            <li{% if region is equalto 'dfw' %} class="active"{% endif %}><a href="/region/dfw">DFW</a></li>
+            <li{% if region is equalto 'iad' %} class="active"{% endif %}><a href="/region/iad">IAD</a></li>
+            <li{% if region is equalto 'ord' %} class="active"{% endif %}><a href="/region/ord">ORD</a></li>
+            <li{% if region is equalto 'lon' %} class="active"{% endif %}><a href="/region/lon">LON</a></li>
+            <li{% if region is equalto 'syd' %} class="active"{% endif %}><a href="/region/syd">SYD</a></li>
+            <li{% if region is equalto 'hkg' %} class="active"{% endif %}><a href="/region/hkg">HKG</a></li>
+          {%- endblock %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+    {%- block content %}{% endblock %}
+    {%- block footer %}
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    {%- endblock %}
+  </body>
+</html>
