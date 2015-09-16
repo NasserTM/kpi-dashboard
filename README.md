@@ -49,13 +49,12 @@ metrics:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.response_*.response_time.mean),90)'
 ```
 
-`brand` - The name displayed on the top left of the site
-`graphite` - Address of the graphite server
-`regions` - List of region names
-`default_span` - Graphite relative time definition
-
-`metrics` - Where you define the graphite calls and how they should be processed
-`display_name` - Pretty display name for the metrics
-`type` - `percent`, `sum`, or `average`
-`unit` - Unit to display
-`targets` - Array of Graphite targets. For `sum` and `average`, a single target is expected. For `percent`, two need to be supplied
+* `brand` - The name displayed on the top left of the site
+* `graphite` - Address of the graphite server
+* `regions` - List of region names
+* `default_span` - Graphite relative time definition
+* `metrics` - Where you define the graphite calls and how they should be processed
+  * `display_name` - Pretty display name for the metrics
+  * `type` - `percent`, `sum`, or `average`
+  * `unit` - Unit to display
+  * `targets` - Array of Graphite targets. For `sum` and `average`, a single target is expected. For `percent`, two need to be supplied
