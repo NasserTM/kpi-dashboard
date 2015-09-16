@@ -13,41 +13,49 @@ metrics:
   - display_name: Percent 50x Responses
     type: percent
     unit: percent
+    null_zero: true
     targets:
       - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests, "30s")),90)'
       - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests, "30s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests, "30s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests, "30s")),90)'
   - display_name: Overall Average API Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.response_*.response_time.mean),90)'
   - display_name: List Stacks Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.list_stacks.mean),90)'
   - display_name: List Resources Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.list_resources.mean),90)'
   - display_name: Get Stack Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.get_stack.mean),90)'
   - display_name: Create Stack Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.create_stack.mean),90)'
   - display_name: Preview Stack Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.preview_stack.mean),90)'
   - display_name: Delete Stack Response Time
     type: average
     unit: seconds
+    null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.delete_stack.upper_90),90)'

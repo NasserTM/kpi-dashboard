@@ -4,7 +4,7 @@
       {%- for metric in metrics -%}
       <div class="row">
         <div class="col-md-6">
-          <img src="{{ metric['base_url'] }}&width=500&height=250" />
+          <img src="{{ metric['base_url'] }}&width=500&drawNullAsZero={{ metric['null_zero'] }}&lineMode=connected" />
         </div>
         <div class="col-md-6">
           <h4>{{ metric['display_name'] }}</h4>
