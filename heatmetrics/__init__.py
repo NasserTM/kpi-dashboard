@@ -10,5 +10,7 @@ with open('config.yml', 'r') as stream:
 
 app.config['GRAPHITE_SERVER'] = metrics_config['graphite']
 app.config['brand'] = metrics_config['brand']
+app.config['regions'] = metrics_config['regions']
+
 
 import heatmetrics.views
