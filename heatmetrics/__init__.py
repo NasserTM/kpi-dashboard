@@ -9,5 +9,6 @@ with open('config.yml', 'r') as stream:
     metrics_config = yaml.load(stream)
 
 app.config['GRAPHITE_SERVER'] = metrics_config['graphite']
+app.config['brand'] = metrics_config['brand']
 
 import heatmetrics.views

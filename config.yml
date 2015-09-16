@@ -1,4 +1,5 @@
 ---
+brand: Heat KPI Dashboard
 graphite: http://graphite.rs-heat.com
 regions:
   - dfw
