@@ -1,14 +1,18 @@
-# heat-metrics-firstpass
+# Heat KPI Dashboard
 
 ## Requirements
 
-- python3
+- python2.7
 - pip
 
 ## Prepare
 
 `pip install -r requirements.txt`
 
-## Run
+## Run Locally
 
-`./run.sh`
+`./runserver.py`
+
+## Running via uWSGI
+
+`uwsgi -s /tmp/uwsgi.sock --module heatmetrics --callable app`
