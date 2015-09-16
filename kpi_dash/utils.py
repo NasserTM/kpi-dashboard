@@ -1,6 +1,6 @@
 import requests
 from urllib import quote
-from heatmetrics import app
+from kpi_dash import app
 
 
 def join_series(data):

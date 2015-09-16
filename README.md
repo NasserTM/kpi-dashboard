@@ -1,4 +1,4 @@
-# Heat KPI Dashboard
+# KPI Dashboard
 
 ## Requirements
 
@@ -15,7 +15,7 @@
 
 ## Running via uWSGI
 
-`uwsgi -s /tmp/uwsgi.sock --module heatmetrics --callable app`
+`uwsgi -s /tmp/uwsgi.sock --module kpi_dash --callable app`
 
 ## Config
 

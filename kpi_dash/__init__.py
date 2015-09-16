@@ -13,4 +13,4 @@ app.config['brand'] = metrics_config['brand']
 app.config['regions'] = metrics_config['regions']
 
 
-import heatmetrics.views
+import kpi_dash.views

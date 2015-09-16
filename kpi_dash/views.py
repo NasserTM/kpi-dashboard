@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, redirect, flash, url_for
-from heatmetrics import app, metrics_config
-from heatmetrics.utils import process_metrics
+from kpi_dash import app, metrics_config
+from kpi_dash.utils import process_metrics
 
 
 @app.route('/')
