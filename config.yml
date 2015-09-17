@@ -1,6 +1,8 @@
 ---
 brand: Heat KPI Dashboard
 graphite: http://graphite.rs-heat.com
+secret_key: secret_test_key
+debug: true
 regions:
   - dfw
   - ord
