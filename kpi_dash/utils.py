@@ -1,6 +1,8 @@
 import requests
 from urllib import quote
 from kpi_dash import app
+from flask import flash
+from requests.exceptions import HTTPError
 
 
 def join_series(data):
@@ -75,9 +77,14 @@ def process_metrics(metrics, span, region):
                                           region)
         metric['base_url'] = base_url
         url = base_url + '&format=json'
-        req = requests.get(url)
-        req.raise_for_status()
-        data = req.json()
+        try:
+            req = requests.get(url)
+            req.raise_for_status()
+            data = req.json()
+        except HTTPError, e:
+            flash('Failed to get statistics for {}: {}'.format(
+                  metric['display_name'], repr(e)))
+            continue
 
         value = 0
         if metric['type'] == 'sum':
