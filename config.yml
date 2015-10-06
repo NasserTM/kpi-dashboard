@@ -12,6 +12,12 @@ regions:
   - hkg
 default_span: -7days
 metrics:
+  - display_name: Uptime
+    type: uptime
+    unit: percent
+    null_zero: false
+    targets:
+      - 'stats.timers.uptime.{region}.mean'
   - display_name: Percent 50x Responses
     type: percent
     unit: percent
