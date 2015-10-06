@@ -1,3 +1,4 @@
+import re
 import requests
 from urllib import quote
 from kpi_dash import app
@@ -16,6 +17,26 @@ def join_series(data):
     if isinstance(data, str) or isinstance(data, unicode):
         return data
     return ','.join(results)
+
+
+def translate_span(span):
+    match = re.match('-([0-9]+)(min|hour|day|week|month|year)', span)
+    if match is None:
+        return None
+    count = int(match.group(1))
+    unit = match.group(2)
+    if unit == 'min':
+        return count * 2
+    if unit == 'hour':
+        return count * 120
+    if unit == 'day':
+        return count * 120 * 24
+    if unit == 'week':
+        return count * 120 * 24 * 7
+    if unit == 'month':
+        return count * 120 * 24 * 30
+    if unit == 'year':
+        return count * 120 * 24 * 365
 
 
 def build_graphite_request(graphite, span, targets, region):
@@ -69,6 +90,16 @@ def calculate_average(data):
     return '{:.3f}'.format(raw)
 
 
+def calculate_uptime(data, span):
+    expected_hits = translate_span(span)
+    datapoints = data[0]['datapoints']
+    uptime_hits = count_datapoints(datapoints)
+    diff = float(expected_hits - uptime_hits)
+    percent_down = diff / expected_hits * 100
+    uptime = 100 - percent_down
+    return '{:.3f}'.format(uptime)
+
+
 def process_metrics(metrics, span, region):
     results = list()
     for metric in metrics:
@@ -93,6 +124,8 @@ def process_metrics(metrics, span, region):
             value = calculate_percentage(data)
         elif metric['type'] == 'average':
             value = calculate_average(data)
+        elif metric['type'] == 'uptime':
+            value = calculate_uptime(data, span)
         else:
             raise SyntaxError('Invalid calculation type')
 
