@@ -26,17 +26,17 @@ def translate_span(span):
     count = int(match.group(1))
     unit = match.group(2)
     if unit == 'min':
-        return count * 2
+        return count * 2 - 1
     if unit == 'hour':
-        return count * 120
+        return count * 120 - 1
     if unit == 'day':
-        return count * 120 * 24
+        return count * 120 * 24 - 1
     if unit == 'week':
-        return count * 120 * 24 * 7
+        return count * 120 * 24 * 7 - 1
     if unit == 'month':
-        return count * 120 * 24 * 30
+        return count * 120 * 24 * 30 - 1
     if unit == 'year':
-        return count * 120 * 24 * 365
+        return count * 120 * 24 * 365 - 1
 
 
 def build_graphite_request(graphite, span, targets, region):
