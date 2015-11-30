@@ -1,5 +1,6 @@
 import re
 import requests
+from datetime import date, datetime
 from urllib import quote
 from kpi_dash import app
 from flask import flash
@@ -19,30 +20,27 @@ def join_series(data):
     return ','.join(results)
 
 
-def translate_span(span):
-    match = re.match('-([0-9]+)(min|hour|day|week|month|year)', span)
-    if match is None:
-        return None
-    count = int(match.group(1))
-    unit = match.group(2)
-    if unit == 'min':
-        return count * 2 - 1
-    if unit == 'hour':
-        return count * 120 - 1
-    if unit == 'day':
-        return count * 120 * 24 - 1
-    if unit == 'week':
-        return count * 120 * 24 * 7 - 1
-    if unit == 'month':
-        return count * 120 * 24 * 30 - 1
-    if unit == 'year':
-        return count * 120 * 24 * 365 - 1
+def translate_span(start, end):
+    if type(start) is date:
+        start = datetime.combine(start, datetime.min.time())
+    if type(end) is date:
+        end = datetime.combine(end, datetime.min.time())
+    now = datetime.now()
+    days_since_start = now - start
+    diff = end - start
+    if days_since_start.days < 21:
+        return int(diff.total_seconds() / 60)
+    else:
+        return int(diff.total_seconds() / 900)
 
 
-def build_graphite_request(graphite, span, targets, region):
-    url = "{}/render/?from={}".format(graphite, span)
+def build_graphite_request(graphite, targets, region, start, end=None):
+    url = "{}/render/?from={}".format(graphite, start.strftime('%H:%M_%Y%m%d'))
+    if end:
+        url += '&until={}'.format(end.strftime('%H:%M_%Y%m%d'))
     for target in targets:
         url += "&target={}".format(quote(join_series(target)))
+    print url
     return url.replace('%7Bregion%7D', region)
 
 
@@ -90,8 +88,8 @@ def calculate_average(data):
     return '{:.3f}'.format(raw)
 
 
-def calculate_uptime(data, span):
-    expected_hits = translate_span(span)
+def calculate_uptime(data, start, end):
+    expected_hits = translate_span(start, end)
     datapoints = data[0]['datapoints']
     uptime_hits = count_datapoints(datapoints)
     diff = float(expected_hits - uptime_hits)
@@ -100,12 +98,13 @@ def calculate_uptime(data, span):
     return '{:.3f}'.format(uptime)
 
 
-def process_metrics(metrics, span, region):
+def process_metrics(metrics, region, start, end):
     results = list()
     for metric in metrics:
         graphite = app.config['GRAPHITE_SERVER']
-        base_url = build_graphite_request(graphite, span, metric['targets'],
-                                          region)
+        base_url = build_graphite_request(graphite,
+                                          metric['targets'], region, start,
+                                          end)
         metric['base_url'] = base_url
         url = base_url + '&format=json'
         try:
@@ -125,7 +124,7 @@ def process_metrics(metrics, span, region):
         elif metric['type'] == 'average':
             value = calculate_average(data)
         elif metric['type'] == 'uptime':
-            value = calculate_uptime(data, span)
+            value = calculate_uptime(data, start, end)
         else:
             raise SyntaxError('Invalid calculation type')
 
