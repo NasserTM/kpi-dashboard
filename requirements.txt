@@ -1,3 +1,6 @@
 requests
 flask
 pyyaml
+flask-wtf
+flask-admin
+flask-bootstrap
