@@ -1,4 +1,24 @@
 {%- extends "base.html" %}
+
+{% block navbar -%}
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">{{ config.brand }}</a>
+        </div>
+        <div>
+          <ul class="nav navbar-nav">
+          {%- block navlist %}
+          {%- for conf_region in config.regions -%}
+            <li{% if region is equalto conf_region %} class="active"{% endif %}><a href="/region/{{ conf_region }}">{{ conf_region|upper }}</a></li>
+          {%- endfor -%}
+          {%- endblock %}
+          </ul>
+        </div>
+      </div>
+    </nav>
+{% endblock -%}
+
 {%- block content -%}
     <div class="container-fluid">
       <div class="row">
