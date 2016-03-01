@@ -67,15 +67,3 @@ metrics:
     null_zero: false
     targets:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.delete_stack.upper_90),90)'
-  - display_name: Requests Per Minute
-    type: average
-    unit: minute
-    null_zero: true
-    targets:
-      - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests, "60s"))'
-  - display_name: Percent Requests Per Minute
-    type: percent
-    unit: minute
-    null_zero: true
-    targets:
-      - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests, "60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests, "60s")),90)'
