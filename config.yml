@@ -72,10 +72,10 @@ metrics:
     unit: seconds
     null_zero: true
     targets:
-      - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests,"60s"))'
+      - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"60s"))'
   - display_name: Percent Requests Per Minute
     type: average
     unit: seconds
     null_zero: true
     targets:
-      - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests,"60s")),90)'
+      - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"60s")),90)'
