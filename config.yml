@@ -74,7 +74,7 @@ metrics:
     targets:
       - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_2*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_3*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_4*.requests,"60s"),hitcount(stats.heat.*_{region}_rs-heat_com.api.response_5*.requests,"60s"))'
   - display_name: Percent Requests Per Minute
-    type: percent
+    type: average
     unit: seconds
     null_zero: true
     targets:
