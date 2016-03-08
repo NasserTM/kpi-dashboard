@@ -18,6 +18,12 @@ metrics:
     null_zero: false
     targets:
       - 'stats.timers.uptime.{region}.mean'
+  - display_name: Percent Requests Per Minute
+    type: average
+    unit: minutes
+    null_zero: true
+    targets:
+      - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"1min")),90)'
   - display_name: Percent 50x Responses
     type: percent
     unit: percent
@@ -69,13 +75,7 @@ metrics:
       - 'removeAbovePercentile(averageSeries(stats.timers.heat.*_{region}_rs-heat_com.api.actions.delete_stack.upper_90),90)'
   - display_name: Requests Per Minute
     type: average
-    unit: seconds
+    unit: minutes
     null_zero: true
     targets:
-      - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"60s"))'
-  - display_name: Percent Requests Per Minute
-    type: average
-    unit: seconds
-    null_zero: true
-    targets:
-      - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"60s")),90)'
+      - 'sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"1min"))'
