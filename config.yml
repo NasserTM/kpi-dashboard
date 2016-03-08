@@ -18,7 +18,7 @@ metrics:
     null_zero: false
     targets:
       - 'stats.timers.uptime.{region}.mean'
-  - display_name: Percent Requests Per Minute
+  - display_name: Percent Requests Per Minute (90 Percentile) 
     type: average
     unit: minutes
     null_zero: true
