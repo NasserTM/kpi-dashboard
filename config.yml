@@ -20,7 +20,7 @@ metrics:
       - 'stats.timers.uptime.{region}.mean'
   - display_name: Percent Requests Per Minute (90 Percentile) 
     type: average
-    unit: minutes
+    unit: count
     null_zero: true
     targets:
       - 'removeAbovePercentile(sumSeries(hitcount(stats.heat.*_{region}_rs-heat_com.api.response_*.requests,"1min")),90)'
