@@ -61,7 +61,7 @@ def count_datapoints(datapoints):
 
 
 def calculate_percentage(data):
-    if len(data) > 2:
+    if len(data) < 2:
         flash('Only one data set returned for percentage calculation')
         return 0.0
 
