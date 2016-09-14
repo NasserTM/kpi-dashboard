@@ -2,5 +2,5 @@ requests
 flask
 pyyaml
 flask-wtf
-flask-admin
+flask-admin<=1.3.0
 flask-bootstrap
