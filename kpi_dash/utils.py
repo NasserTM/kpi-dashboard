@@ -61,24 +61,31 @@ def count_datapoints(datapoints):
 
 
 def calculate_percentage(data):
-    assert len(data) == 2, ('Two sets of datapoints are required to calculate '
-                            'percentage')
+    if len(data) == 1:
+        flash('Only one data set returned for percentage calculation')
+        return 0.0
+
     values = [sum_datapoints(target['datapoints']) for pos, target
               in enumerate(data)]
     if values[1] == 0.0:
         return 0.0
+
     return '{:.3f}%'.format(values[0] / values[1] * 100)
 
 
 def calculate_sum(data):
-    assert len(data) == 1, ('One set of datapoints required when calculating '
-                            'counts')
+    if len(data) == 0:
+        flash('Zero data returned')
+        return 0
+
     return sum_datapoints(data[0]['datapoints'])
 
 
 def calculate_average(data):
-    assert len(data) == 1, ('One set of datapoints required when calculating '
-                            'averages')
+    if len(data) == 0:
+        flash('Zero data returned')
+        return 0.0
+
     datapoints = data[0]['datapoints']
     total = sum_datapoints(datapoints)
     total_dp = count_datapoints(datapoints)
