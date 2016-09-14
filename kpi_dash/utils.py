@@ -96,6 +96,10 @@ def calculate_average(data):
 
 
 def calculate_uptime(data, start, end):
+    if len(data) == 0:
+        flash('Zero uptime statistics')
+        return 0.000
+
     expected_hits = translate_span(start, end)
     datapoints = data[0]['datapoints']
     uptime_hits = count_datapoints(datapoints)
