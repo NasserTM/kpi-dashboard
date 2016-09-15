@@ -81,6 +81,21 @@ def calculate_sum(data):
     return sum_datapoints(data[0]['datapoints'])
 
 
+def calculate_requests_per_second(data):
+    if len(data) == 0:
+        flash('Zero data returned')
+        return 0.0
+
+    datapoints = data[0]['datapoints']
+    total = sum_datapoints(datapoints)
+    total_dp = count_datapoints(datapoints)
+    seconds_per_interval = datapoints[1][1] - datapoints[0][1]
+    raw = 0.0
+    if total_dp > 0:
+        raw = total / total_dp / seconds_per_interval
+    return '{:.3f}'.format(raw)
+
+
 def calculate_average(data):
     if len(data) == 0:
         flash('Zero data returned')
@@ -134,6 +149,8 @@ def process_metrics(metrics, region, start, end):
             value = calculate_percentage(data)
         elif metric['type'] == 'average':
             value = calculate_average(data)
+        elif metric['type'] == 'requests_per_second':
+            value = calculate_requests_per_second(data)
         elif metric['type'] == 'uptime':
             value = calculate_uptime(data, start, end)
         else:
