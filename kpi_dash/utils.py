@@ -20,7 +20,7 @@ def join_series(data):
     return ','.join(results)
 
 
-def translate_span(start, end):
+def translate_span(datapoints, start, end):
     if type(start) is date:
         start = datetime.combine(start, datetime.min.time())
     if type(end) is date:
@@ -28,10 +28,8 @@ def translate_span(start, end):
     now = datetime.now()
     days_since_start = now - start
     diff = end - start
-    if days_since_start.days < 21:
-        return int(diff.total_seconds() / 60)
-    else:
-        return int(diff.total_seconds() / 900)
+    seconds_per_interval = datapoints[1][1] - datapoints[0][1]
+    return int(diff.total_seconds() / seconds_per_interval)
 
 
 def build_graphite_request(graphite, targets, region, start, end=None):
@@ -115,8 +113,8 @@ def calculate_uptime(data, start, end):
         flash('Zero uptime statistics')
         return 0.000
 
-    expected_hits = translate_span(start, end)
     datapoints = data[0]['datapoints']
+    expected_hits = translate_span(datapoints, start, end)
     uptime_hits = count_datapoints(datapoints)
     diff = float(expected_hits - uptime_hits)
     percent_down = diff / expected_hits * 100
