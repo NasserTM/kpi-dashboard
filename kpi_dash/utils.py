@@ -25,8 +25,7 @@ def translate_span(datapoints, start, end):
         start = datetime.combine(start, datetime.min.time())
     if type(end) is date:
         end = datetime.combine(end, datetime.min.time())
-    now = datetime.now()
-    days_since_start = now - start
+
     diff = end - start
     seconds_per_interval = datapoints[1][1] - datapoints[0][1]
     return int(diff.total_seconds() / seconds_per_interval)
