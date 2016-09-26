@@ -129,7 +129,8 @@ def calculate_uptime(data, start, end):
         return 0.000
 
     datapoints = data[0]['datapoints']
-    expected_hits = translate_span(datapoints, start, end) - 1
+    del datapoints[-1]
+    expected_hits = translate_span(datapoints, start, end)
     uptime_hits = count_datapoints(datapoints)
     diff = float(expected_hits - uptime_hits)
     percent_down = diff / expected_hits * 100
